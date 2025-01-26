@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Emotion-Based Recommender</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>EchoMood</h1>
+        <p>Type a sentence to describe how you're feeling, and get music recommendations based on your mood.</p>
+        
+        <form action="/predict_emotion" method="post">
+            <div class="form-group">
+                <label for="text" style="font-weight: bold;">How Are You Feeling Today?</label>
+                <input type="text" name="text" placeholder="Type here..." required>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Detect Emotion</button>
+            </div>
+        </form>
+
+        {% if emotion %}
+            <h2>Your detected emotion is: {{ emotion }}</h2>
+            <a href="{{ url_for('recommend_emotion', emotion=emotion) }}" class="btn">Get Song Recommendations</a>
+        {% endif %}
+       <p>Or <a href="/login?emotion={{ emotion }}" class="btn">Login to Spotify</a> to get personalized music recommendations.</p>
+    </div>
+
+</body>
+</html>
